@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>weather data for cities</title>
+  <!-- Bootstrap CSS CDN  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+
+  <!-- Font Awesome CSS Icons (For cool glyphicons) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+  <!-- Style to fix the issue of text extending past card length -->
+  <style>
+    .card-body a {
+      word-break: break-all;
+    }
+
+    .articleHeadline {
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Main Bootstrap Search -->
+  
+
+    <!-- Jumbotron for Title -->
+    <div class="jumbotron" style="background-color: #20315A ; color: white;">
+      <h1 class="text-center" style="font-size: 50px;font-weight: 600;">get current and future weather</h1>
+    </div>
+    <div class="container">
+
+    <div class="row" style="margin-bottom: 20px;">
+      <h2 class="text-center text-primary"> Enter City Name </h2> 
+      <span id="error"></span>       
+        <!-- First card is for handling the search parameters -->
+        <div class="row form-group form-inline" id = "rowDiv">
+          <input type ="text" name="city" id="city" class="form-control" placeholder="cityname">
+            
+        <button id="submitWeather" type= "button" class="btn-btn-primary">Search City</button>
+          </div>
+        <div id="Show"></div>
+
+  </div>
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script >
+      $(document).ready(function(){
+          $("#submitWeather").click(function(){
+              var city = $("#city").val();
+              if(city !=""){
+                  $.ajax({
+                      url:"http://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=8da040f240b5fdaf3eea1f9e0095a3e9",
+                      type:"GET",
+                      dataType:"json",
+                      success: function(data){
+                          var widget = Show(data);
+                          $("#Show").html(widget);
+                          $("#city").val('');
+
+
+                      }
+
+                  });
+                    
+              }else{
+                  $("#error").html("<div class='alert-danger text-center' style='font-weight:50px;'><a href='#' class='close' data-dismiss='alert' aria-label='close'>$times;</a>Field cannot be empty</div>");
+              }
+              
+
+          }); 
+          function Show(data){
+            return  "<h3 style='font-size:40px; font-weight:bold'>Current Weather for"+ data.name+", "+ data.sys.country+"</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Weather</strong>:"+ data.weather[0].main +"</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Description</strong>:"+ data.weather[0].description +"</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Description</strong>:<img src='http://openweathermap.org/img/w/"+data.weather[0].icon+".png'>"+ data.weather[0].description +"</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Temperature</strong>:"+ data.main.temp +"$deg;C</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Pressure</strong>:"+ data.main.pressure +"hPa</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Humidity</strong>:"+ data.main.humidity +"%</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Min. Temperature</strong>:"+ data.main.temp_min +"$deg;C</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Max. Temperature</strong>:"+ data.main.temp_max +"$deg;C</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Wind Speed</strong>:"+ data.wind.speed +"m/s</h3>"+
+                   "<h3 style='padding-left:40px;'><strong>Wind Direction</strong>:"+ data.wind.deg +"$deg;</h3>";
+                   
+
+          }    
+  
+      });
+ 
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Code to the JavaScript File -->
+  
+
+</body>
+
+</html>
