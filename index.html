@@ -66,13 +66,13 @@
                   });
                     
               }else{
-                  $("#error").html("<div class='alert-danger text-center' style='font-weight:50px;'><a href='#' class='close' data-dismiss='alert' aria-label='close'>$times;</a>Field cannot be empty</div>");
+                  $("#error").html("<div class='alert-danger text-center' style='font-weight:50px;'><a href='#' class='close' data-dismiss='alert' aria-label='close'></a>Field cannot be empty</div>");
               }
               
 
           }); 
           function Show(data){
-            return  "<h3 style='font-size:40px; font-weight:bold'>Current Weather for"+ data.name+", "+ data.sys.country+"</h3>"+
+            return  "<h3 >Current Weather for"+ data.name+", "+ data.sys.country+"</h3>"+
                    "<h3 style='padding-left:40px;'><strong>Weather</strong>:"+ data.weather[0].main +"</h3>"+
                    "<h3 style='padding-left:40px;'><strong>Description</strong>:"+ data.weather[0].description +"</h3>"+
                    "<h3 style='padding-left:40px;'><strong>Description</strong>:<img src='http://openweathermap.org/img/w/"+data.weather[0].icon+".png'>"+ data.weather[0].description +"</h3>"+
